@@ -1,17 +1,19 @@
 package com.example.runningtrackerapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.runningtrackerapp.database.RunDAO
 import com.example.runningtrackerapp.other.CONSTANTS.ACTION_SHOW_TRACKING_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -47,5 +49,11 @@ class MainActivity : AppCompatActivity() {
         if(intent?.action == ACTION_SHOW_TRACKING_FRAGMENT){
             navHostFragment.findNavController().navigate(R.id.action_global_trackingFragment)
         }
+    }
+
+    fun updateStatusBarColor(color: String?) { // Color must be in hexadecimal fromat
+        val window: Window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.setStatusBarColor(Color.parseColor(color))
     }
 }
